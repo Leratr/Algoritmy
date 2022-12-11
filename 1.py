@@ -1,14 +1,28 @@
-def func (num):
-    f=0
-    while num > 0:
-        if num % 2 == 0:
-            num /= 2
-        else:
-            num -= 1
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head):
+        first = head
+        second = head
 
-    return f
+        while first and first.next:
+            first = first.next.next
+            second = second.next
 
-x=int(input(" num: "))
-print(func(x))
+        prev = None
+        while second:
+            tmp = second.next
+            second.next = prev
+            prev = second
+            second = tmp
 
-
+        left, right = head, prev
+        while right:
+            if left.val != right.val:
+                return False
+            left = left.next
+            right = right.next
+        return True
